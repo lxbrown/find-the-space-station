@@ -1,11 +1,11 @@
 # TODO
 
 ### MVP
-Fetch ISS location on initial render, then display
+Create/find overlay component that can be dynamically updated
 
-Refresh ISS location every ~3-5 seconds while page is active (log to console)
+Connect overlay component to ISS location feed
 
-Update overlay icon with new coordinates on location refresh
+Fetch ISS location on initial render, not after timeout window
 
 Add tail which tracks where it has been since page loaded
 
