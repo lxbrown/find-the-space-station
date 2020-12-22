@@ -30,6 +30,13 @@ function App() {
         setPositions([]);
         positionFeed.push([response.data.longitude, response.data.latitude]);
         setPositions(positionFeed);
+        if (positionFeed.length === 1) {
+          setViewport({
+            latitude: positionFeed[0][1],
+            longitude: positionFeed[0][0],
+            zoom: 2
+          })
+        }
       });
     };
 

@@ -1,8 +1,6 @@
 # TODO
 
 ### MVP
-Pick inital position
-
 Add handling for ISS location API being down
 
 Add title and description
