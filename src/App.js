@@ -13,24 +13,28 @@ function App() {
   const [positions, setPositions] = useState([])
 
   useEffect(() => {
-    let positionFeed = []
-    const interval = setInterval(() => {
+    let positionFeed = [];
+
+    function updatePosition() {
       // setPositions([]);
       // if (positionFeed.length === 0) {
-      //   positionFeed.push([-122, 37])
+      //   positionFeed.push([-122, 37]);
       // }
       // else {
-      //   positionFeed.push([-122 + positionFeed.length, 37])
+      //   positionFeed.push([-122 + positionFeed.length, 37]);
       // }
       // setPositions(positionFeed);
 
       axios.get('https://api.wheretheiss.at/v1/satellites/25544')
       .then(response => {
         setPositions([]);
-        positionFeed.push([response.data.longitude, response.data.latitude])
+        positionFeed.push([response.data.longitude, response.data.latitude]);
         setPositions(positionFeed);
       });
-    }, 5000);
+    };
+
+    updatePosition();
+    const interval = setInterval(updatePosition, 5000);
     return () => clearInterval(interval);
   }, []);
 

@@ -1,8 +1,6 @@
 # TODO
 
 ### MVP
-Fetch ISS location on initial render, not after timeout window
-
 Pick inital position
 
 Add handling for ISS location API being down
@@ -21,6 +19,8 @@ Display last 10 or so locations on page load
 Allow tracking (page centers on ISS and tracks it)
 
 Use telemetry data to predict future path
+
+Fix CSS console warning
 
 Prevent drawing from disappearing on page resize
 
