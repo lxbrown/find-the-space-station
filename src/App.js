@@ -10,25 +10,29 @@ function App() {
     longitude: 0,
     zoom: 2,
   });
-  const [locations, setLocations] = useState([])
+  const [positions, setPositions] = useState([])
 
   useEffect(() => {
-    const interval = setInterval(updateLocation, 5000);
+    let positionFeed = []
+    const interval = setInterval(() => {
+      // setPositions([]);
+      // if (positionFeed.length === 0) {
+      //   positionFeed.push([-122, 37])
+      // }
+      // else {
+      //   positionFeed.push([-122 + positionFeed.length, 37])
+      // }
+      // setPositions(positionFeed);
+
+      axios.get('https://api.wheretheiss.at/v1/satellites/25544')
+      .then(response => {
+        setPositions([]);
+        positionFeed.push([response.data.longitude, response.data.latitude])
+        setPositions(positionFeed);
+      });
+    }, 5000);
     return () => clearInterval(interval);
-  }, [locations]);
-
-  function updateLocation() {
-    // let array = [].concat(locations)
-    // array.push([-122.39851786165565, 37.78736425435588])
-    // setLocations(array);
-
-    axios.get('https://api.wheretheiss.at/v1/satellites/25544')
-    .then(response => {
-      let array = [].concat(locations)
-      array.push([response.data.longitude, response.data.latitude])
-      setLocations(array);
-    });
-  }
+  }, []);
 
   return (
     <MapGL
@@ -39,7 +43,7 @@ function App() {
       onViewportChange={nextViewport => setViewport(nextViewport)}
       mapboxApiAccessToken={env.MAPBOX_ACCESS_TOKEN}>
       <ScatterplotOverlay
-        locations={locations}
+        locations={positions}
         dotRadius={10}
         globalOpacity={0.8}
         compositeOperation="lighter"

@@ -1,8 +1,6 @@
 # TODO
 
 ### MVP
-Fix Hook dependency warning
-
 Fetch ISS location on initial render, not after timeout window
 
 Pick inital position

@@ -30,7 +30,6 @@ const defaultProps = {
 };
 
 export default class ScatterplotOverlay extends PureComponent {
-  /* eslint-disable max-statements */
   _redraw = ({width, height, ctx, isDragging, project, unproject}) => {
     const {
       dotRadius,
@@ -62,7 +61,6 @@ export default class ScatterplotOverlay extends PureComponent {
       }
     }
   };
-  /* eslint-enable max-statements */
 
   render() {
     return <CanvasOverlay redraw={this._redraw} />;
