@@ -1,8 +1,10 @@
-import MapGL from 'react-map-gl';
-import env from "react-dotenv";
 import { useEffect, useState } from 'react';
-import ScatterplotOverlay from './overlay/scatterplot-overlay';
+import env from "react-dotenv";
+import MapGL from 'react-map-gl';
 import axios from 'axios';
+import { useSnackbar } from 'react-simple-snackbar';
+
+import ScatterplotOverlay from './overlay/scatterplot-overlay';
 
 function App() {
   const [viewport, setViewport] = useState({
@@ -10,10 +12,16 @@ function App() {
     longitude: 0,
     zoom: 2,
   });
-  const [positions, setPositions] = useState([])
-
+  const [positions, setPositions] = useState([]);
+  const [stopUpdates, setStopUpdates] = useState(false);
+  const [openSnackbar, closeSnackbar] = useSnackbar();
+  
   useEffect(() => {
+    const waitTime = 5000;
+    const maxFails = 4;
+
     let positionFeed = [];
+    let failCount = 0;
 
     function updatePosition() {
       // setPositions([]);
@@ -24,9 +32,11 @@ function App() {
       //   positionFeed.push([-122 + positionFeed.length, 37]);
       // }
       // setPositions(positionFeed);
-
-      axios.get('https://api.wheretheiss.at/v1/satellites/25544')
+      
+      closeSnackbar();
+      axios.get('https://api.wheretheiss.at/v1/satellites/25542')
       .then(response => {
+        failCount = 0;
         setPositions([]);
         positionFeed.push([response.data.longitude, response.data.latitude]);
         setPositions(positionFeed);
@@ -37,13 +47,26 @@ function App() {
             zoom: 2
           })
         }
+      })
+      .catch(() => {
+        failCount++;
+        if (failCount < maxFails) {
+          openSnackbar("Error fetching ISS location. Trying " + (maxFails - failCount) + " more times.", waitTime-500);
+        }
+        else {
+          openSnackbar("Repeated failure to fetch ISS location. Refresh the page later to try again.", 15000);
+          setStopUpdates(true);
+        }
       });
     };
 
-    updatePosition();
-    const interval = setInterval(updatePosition, 5000);
-    return () => clearInterval(interval);
-  }, []);
+    if (!stopUpdates) {
+      updatePosition();
+      const interval = setInterval(updatePosition, waitTime);
+      return () => clearInterval(interval);
+    }
+  // eslint-disable-next-line
+  }, [stopUpdates]);
 
   return (
     <MapGL

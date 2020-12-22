@@ -1,8 +1,6 @@
 # TODO
 
 ### MVP
-Add handling for ISS location API being down
-
 Add title and description
 
 Publish to domain
@@ -15,6 +13,8 @@ Add tail which tracks where it has been since page loaded
 Display last 10 or so locations on page load
 
 Allow tracking (page centers on ISS and tracks it)
+
+Toggle satellite/map view
 
 Use telemetry data to predict future path
 
