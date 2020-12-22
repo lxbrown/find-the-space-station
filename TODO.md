@@ -1,11 +1,9 @@
 # TODO
 
 ### MVP
-Add title and description
+Publish to domain + update version #
 
-Publish to domain
-
-### V1
+### V2
 Swap to using ISS Icon
 
 Add tail which tracks where it has been since page loaded

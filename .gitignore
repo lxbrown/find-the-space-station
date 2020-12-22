@@ -9,6 +9,11 @@
 
 .eslintcache
 
+# firebase
+firebase-debug.log*
+firebase-debug.*.log*
+.firebase/
+
 # misc
 .DS_Store
 .env.local
