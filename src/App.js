@@ -1,31 +1,32 @@
 import MapGL from 'react-map-gl';
 import env from "react-dotenv";
 import { useEffect, useState } from 'react';
-import Immutable from 'immutable';
 import ScatterplotOverlay from './overlay/scatterplot-overlay';
 import axios from 'axios';
 
 function App() {
   const [viewport, setViewport] = useState({
-    latitude: 42,
-    longitude: -90,
+    latitude: 0,
+    longitude: 0,
     zoom: 2,
   });
-  const locations = Immutable.fromJS([
-    [-122.39851786165565, 37.78736425435588],
-    [-122.40015469418074, 37.78531678199267],
-    [-122.4124101516789, 37.80051001607987],
-  ])
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
     const interval = setInterval(updateLocation, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [locations]);
 
   function updateLocation() {
+    // let array = [].concat(locations)
+    // array.push([-122.39851786165565, 37.78736425435588])
+    // setLocations(array);
+
     axios.get('https://api.wheretheiss.at/v1/satellites/25544')
     .then(response => {
-      console.log(response.data.latitude + ' ' + response.data.longitude);
+      let array = [].concat(locations)
+      array.push([response.data.longitude, response.data.latitude])
+      setLocations(array);
     });
   }
 
