@@ -1,0 +1,17 @@
+.title-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    padding: 2rem 2rem;
+    color: #b8b8b8;
+    outline: none;
+  }
+
+.title {
+    margin: 0;
+}
+
+.description {
+    margin: 0;
+}
