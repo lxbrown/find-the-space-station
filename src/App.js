@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import env from "react-dotenv";
 import MapGL from 'react-map-gl';
-import axios from 'axios';
 import { useSnackbar } from 'react-simple-snackbar';
 
 import ScatterplotOverlay from './overlay/scatterplot-overlay';
 import Title from './title';
+import { getCurrentPosition } from './dao';
 
 function App() {
   const [viewport, setViewport] = useState({
@@ -25,24 +25,9 @@ function App() {
     let failCount = 0;
 
     function updatePosition() {
-      // setPositions([]);
-      // if (positionFeed.length === 0) {
-      //   positionFeed.push([-122, 37]);
-      // }
-      // else {
-      //   positionFeed.push([-122 + positionFeed.length, 37]);
-      // }
-      // setPositions(positionFeed);
-      // if (positionFeed.length === 1) {
-      //   setViewport({
-      //     latitude: positionFeed[0][1],
-      //     longitude: positionFeed[0][0],
-      //     zoom: 2
-      //   });
-      // }
-      
       closeSnackbar();
-      axios.get('https://api.wheretheiss.at/v1/satellites/25544')
+
+      getCurrentPosition()
       .then(response => {
         failCount = 0;
         setPositions([]);

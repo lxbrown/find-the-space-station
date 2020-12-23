@@ -2,7 +2,6 @@
 
 ### MVP
 Decide on a domain:
-* Test publishing to sub-domain of lxbrown.dev
 * If that doesn't work, buy something like findthespacestation.com
 
 Wait until https://github.com/visgl/react-map-gl/issues/1266 is resolved. Can check off some v2 items in the meantime
