@@ -32,6 +32,8 @@ Use telemetry data to predict future path
 
 Move to independent domain, something like findthespacestation.com
 
+Fix bug where a long tail causes rendering issues
+
 Support for rendering sunlight
 
 Prevent drawing from disappearing on page resize
