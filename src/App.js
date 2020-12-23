@@ -7,6 +7,7 @@ import IconOverlay from './overlay/icon';
 import TitleOverlay from './overlay/title';
 
 import { getCurrentPosition } from './dao';
+import TrailOverlay from './overlay/trail';
 
 function App() {
   const [viewport, setViewport] = useState({
@@ -71,6 +72,9 @@ function App() {
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={nextViewport => setViewport(nextViewport)}
         mapboxApiAccessToken={env.MAPBOX_ACCESS_TOKEN}>
+        <TrailOverlay
+          positions={positions.length > 0 ? positions : null}
+        />
         <IconOverlay
           position={positions.length > 0 ? positions[positions.length - 1] : null}
         />
