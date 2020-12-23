@@ -3,7 +3,7 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { SVGOverlay } from 'react-map-gl';
 
-import {ReactComponent as ISSIcon} from '../assets/icons/iss.svg';
+import { ReactComponent as ISSIcon } from '../assets/icons/iss.svg';
 
 const propTypes = {
   position: PropTypes.arrayOf(PropTypes.number) || null,
@@ -12,13 +12,13 @@ const propTypes = {
 };
 
 const defaultProps = {
-  position: [0, 0],
+  position: null,
   width: 125,
   height: 125,
 }
 
 export default class IconOverlay extends PureComponent {
-  _redraw = ({project}) => {
+  _redraw = ({ project }) => {
     const {
       position,
       width,
@@ -32,7 +32,7 @@ export default class IconOverlay extends PureComponent {
     const xCentered = x - (width / 2);
     const yCentered = y - (height / 2);
 
-    return <ISSIcon x={xCentered} y={yCentered} width={width} height={height}/>
+    return <ISSIcon x={xCentered} y={yCentered} width={width} height={height} />
   };
 
   render() {
