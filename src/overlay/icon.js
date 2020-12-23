@@ -1,69 +1,42 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { SVGOverlay } from 'react-map-gl';
 
-import { CanvasOverlay } from 'react-map-gl';
-
-function round(x, n) {
-  const tenN = Math.pow(10, n);
-  return Math.round(x * tenN) / tenN;
-}
+import {ReactComponent as ISSIcon} from '../assets/icons/iss.svg';
 
 const propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.array),
-  lngLatAccessor: PropTypes.func,
-  renderWhileDragging: PropTypes.bool,
-  globalOpacity: PropTypes.number,
-  dotRadius: PropTypes.number,
-  dotFill: PropTypes.string,
-  compositeOperation: PropTypes.string
+  position: PropTypes.arrayOf(PropTypes.number) || null,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 const defaultProps = {
-  lngLatAccessor: location => [location[0], location[1]],
-  renderWhileDragging: true,
-  dotRadius: 4,
-  dotFill: '#1FBAD6',
-  globalOpacity: 1,
-  // Same as browser default.
-  compositeOperation: 'source-over'
-};
+  position: [0, 0],
+  width: 125,
+  height: 125,
+}
 
 export default class IconOverlay extends PureComponent {
-  _redraw = ({width, height, ctx, isDragging, project, unproject}) => {
+  _redraw = ({project}) => {
     const {
-      dotRadius,
-      dotFill,
-      compositeOperation,
-      renderWhileDragging,
-      locations,
-      lngLatAccessor
+      position,
+      width,
+      height,
     } = this.props;
-
-    ctx.clearRect(0, 0, width, height);
-    ctx.globalCompositeOperation = compositeOperation;
-
-    if ((renderWhileDragging || !isDragging) && locations) {
-      for (const location of locations) {
-        const pixel = project(lngLatAccessor(location));
-        const pixelRounded = [round(pixel[0], 1), round(pixel[1], 1)];
-        if (
-          pixelRounded[0] + dotRadius >= 0 &&
-          pixelRounded[0] - dotRadius < width &&
-          pixelRounded[1] + dotRadius >= 0 &&
-          pixelRounded[1] - dotRadius < height
-        ) {
-          ctx.fillStyle = dotFill;
-          ctx.beginPath();
-          ctx.arc(pixelRounded[0], pixelRounded[1], dotRadius, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
+    if (!position || position.length === 0) {
+      return <></>
     }
+
+    const [x, y] = project(position);
+    const xCentered = x - (width / 2);
+    const yCentered = y - (height / 2);
+
+    return <ISSIcon x={xCentered} y={yCentered} width={width} height={height}/>
   };
 
   render() {
-    return <CanvasOverlay redraw={this._redraw} />;
+    return <SVGOverlay redraw={this._redraw} />;
   }
 }
 

@@ -14,8 +14,6 @@ If that issue isn't going to be resolved soon:
 Publish to domain + update version #
 
 ### V2
-Swap to using ISS Icon
-
 Add tail which tracks where it's been since page loaded
 
 Display last 10 or so positions on initial page load

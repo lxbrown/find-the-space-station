@@ -72,12 +72,7 @@ function App() {
         onViewportChange={nextViewport => setViewport(nextViewport)}
         mapboxApiAccessToken={env.MAPBOX_ACCESS_TOKEN}>
         <IconOverlay
-          locations={positions}
-          dotRadius={10}
-          globalOpacity={0.8}
-          compositeOperation="lighter"
-          dotFill="#00a8fe"
-          renderWhileDragging={true}
+          position={positions.length > 0 ? positions[positions.length-1] : null}
         />
       </MapGL>
       <TitleOverlay/>
