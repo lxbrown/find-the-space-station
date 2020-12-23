@@ -1,8 +1,6 @@
-import * as React from 'react';
-
 import './title.css';
 
-export default function Title() {
+export default function TitleOverlay() {
     return (
         <div className="title-panel">
             <h2 className="title">Find the space station</h2>

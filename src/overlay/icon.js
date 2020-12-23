@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {PureComponent} from 'react';
+import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import {CanvasOverlay} from 'react-map-gl';
+import { CanvasOverlay } from 'react-map-gl';
 
 function round(x, n) {
   const tenN = Math.pow(10, n);
@@ -29,7 +29,7 @@ const defaultProps = {
   compositeOperation: 'source-over'
 };
 
-export default class ScatterplotOverlay extends PureComponent {
+export default class IconOverlay extends PureComponent {
   _redraw = ({width, height, ctx, isDragging, project, unproject}) => {
     const {
       dotRadius,
@@ -67,6 +67,6 @@ export default class ScatterplotOverlay extends PureComponent {
   }
 }
 
-ScatterplotOverlay.displayName = 'ScatterplotOverlay';
-ScatterplotOverlay.propTypes = propTypes;
-ScatterplotOverlay.defaultProps = defaultProps;
+IconOverlay.displayName = 'IconOverlay';
+IconOverlay.propTypes = propTypes;
+IconOverlay.defaultProps = defaultProps;

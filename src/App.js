@@ -3,8 +3,9 @@ import env from "react-dotenv";
 import MapGL from 'react-map-gl';
 import { useSnackbar } from 'react-simple-snackbar';
 
-import ScatterplotOverlay from './overlay/scatterplot-overlay';
-import Title from './title';
+import IconOverlay from './overlay/icon';
+import TitleOverlay from './overlay/title';
+
 import { getCurrentPosition } from './dao';
 
 function App() {
@@ -70,7 +71,7 @@ function App() {
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={nextViewport => setViewport(nextViewport)}
         mapboxApiAccessToken={env.MAPBOX_ACCESS_TOKEN}>
-        <ScatterplotOverlay
+        <IconOverlay
           locations={positions}
           dotRadius={10}
           globalOpacity={0.8}
@@ -79,7 +80,7 @@ function App() {
           renderWhileDragging={true}
         />
       </MapGL>
-      <Title/>
+      <TitleOverlay/>
     </>
   );
 }
