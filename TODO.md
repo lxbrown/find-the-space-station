@@ -1,9 +1,6 @@
 # TODO
 
 ### MVP
-Decide on a domain:
-* If that doesn't work, buy something like findthespacestation.com
-
 Wait until https://github.com/visgl/react-map-gl/issues/1266 is resolved. Can check off some v2 items in the meantime
 
 If that issue isn't going to be resolved soon:
@@ -14,15 +11,22 @@ If that issue isn't going to be resolved soon:
 Publish to domain + update version #
 
 ### V2
-Add tail which tracks where it's been since page loaded
-
 Display last 10 or so positions on initial page load
 
 Allow tracking (page centers on ISS and tracks it)
 
-Toggle satellite/map view
+Add "themes"
+* Dark theme has dark font, black/white ISS, light trail
+* Light theme has light font, white/black ISS, dark trail
+* Satellite theme has dark font, black/white ISS, light trail ??
+
+Add theme selection to control panel
+
+Update title font
 
 Use telemetry data to predict future path
+
+Move to independent domain, something like findthespacestation.com
 
 Support for rendering sunlight
 
