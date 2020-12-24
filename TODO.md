@@ -6,7 +6,10 @@ Wait until https://github.com/visgl/react-map-gl/issues/1266 is resolved. Can ch
 If that issue isn't going to be resolved soon:
 * Get prod build using map-test and map example webpack.config.js working
 * Use that webpack.config here
-* Test deploying using Firebase
+* Test deploy
+    ``` shell
+    serve -s build
+    ```
 
 Publish to domain + update version #
 
