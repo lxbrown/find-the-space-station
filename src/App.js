@@ -5,9 +5,13 @@ import { useSnackbar } from 'react-simple-snackbar';
 
 import IconOverlay from './overlay/icon';
 import TitleOverlay from './overlay/title';
-
-import { getCurrentPosition } from './dao';
 import TrailOverlay from './overlay/trail';
+
+import { fetchCurrentPosition, fetchLastNPositions } from './dao';
+
+const REFRESH_PERIOD = 5000; // ms
+const MAX_FAILS = 4;
+const LEAD_IN_COUNT = 10; // max is 10
 
 function App() {
   const [viewport, setViewport] = useState({
@@ -20,33 +24,37 @@ function App() {
   const [openSnackbar, closeSnackbar] = useSnackbar();
 
   useEffect(() => {
-    const waitTime = 5000;
-    const maxFails = 4;
+    let positionFeed = positions;
 
-    let positionFeed = [];
+    function savePosition(latitude, longitude) {
+      failCount = 0;
+
+      setPositions([]);
+      positionFeed.push([longitude, latitude]);
+      setPositions(positionFeed);
+      if (positionFeed.length === 1) {
+        setViewport({
+          latitude: latitude,
+          longitude: longitude,
+          zoom: 2
+        });
+      }
+    };
+
     let failCount = 0;
-
     function updatePosition() {
       closeSnackbar();
 
-      getCurrentPosition()
+      fetchCurrentPosition()
         .then(response => {
           failCount = 0;
-          setPositions([]);
-          positionFeed.push([response.data.longitude, response.data.latitude]);
-          setPositions(positionFeed);
-          if (positionFeed.length === 1) {
-            setViewport({
-              latitude: positionFeed[0][1],
-              longitude: positionFeed[0][0],
-              zoom: 2
-            });
-          }
+
+          savePosition(response.data.latitude, response.data.longitude)
         })
         .catch(() => {
           failCount++;
-          if (failCount < maxFails) {
-            openSnackbar("Error fetching ISS location. Trying " + (maxFails - failCount) + " more times.", waitTime - 500);
+          if (failCount < MAX_FAILS) {
+            openSnackbar("Error fetching ISS location. Trying " + (MAX_FAILS - failCount) + " more times.", REFRESH_PERIOD - 500);
           }
           else {
             openSnackbar("Repeated failure to fetch ISS location. Refresh the page later to try again.", 15000);
@@ -56,8 +64,21 @@ function App() {
     };
 
     if (!stopUpdates) {
-      updatePosition();
-      const interval = setInterval(updatePosition, waitTime);
+      fetchLastNPositions(LEAD_IN_COUNT, REFRESH_PERIOD)
+      .then(response => {
+        const timer = ms => new Promise(res => setTimeout(res, ms))
+
+        async function leadIn () {
+          for (var i = 0; i < response.data.length; i++) {
+            savePosition(response.data[i].latitude, response.data[i].longitude);
+            await timer(REFRESH_PERIOD / (LEAD_IN_COUNT * 5));
+          }
+        }
+
+        leadIn();
+      })
+
+      const interval = setInterval(updatePosition, REFRESH_PERIOD);
       return () => clearInterval(interval);
     }
     // eslint-disable-next-line

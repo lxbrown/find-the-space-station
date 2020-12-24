@@ -15,8 +15,6 @@ Publish to domain + update version #
 
 ### V2
 Display last 10 or so positions on initial page load
-* Get 10 (or max #) data points from before load
-* Update the ISS position on the map with each of those
 * Render the first 10 spots on the trail (historical ones) with opacity gradient
 * Fade in the ISS using a similar opacity gradient (if possible)
 
