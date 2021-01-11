@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "react-dotenv && react-scripts start",
-    "build": "react-dotenv && react-scripts build"
+    "build": "react-dotenv && react-scripts build",
+    "deploy": "yarn build && firebase deploy"
   },
   "eslintConfig": {
     "extends": [
