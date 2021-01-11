@@ -1,19 +1,8 @@
 # TODO
 
-### MVP
-Wait until https://github.com/visgl/react-map-gl/issues/1266 is resolved. Can check off some v2 items in the meantime
+Once https://github.com/visgl/react-map-gl/issues/1266 is resolved
+* upgrade to 6.0.x of react-map-gl
 
-If that issue isn't going to be resolved soon:
-* Get prod build using map-test and map example webpack.config.js working
-* Use that webpack.config here
-* Test deploy
-    ``` shell
-    serve -s build
-    ```
-
-Publish to domain + update version #
-
-### V2
 Display last 10 or so positions on initial page load
 * Render the first 10 spots on the trail (historical ones) with opacity gradient
 * Fade in the ISS using a similar opacity gradient (if possible)
