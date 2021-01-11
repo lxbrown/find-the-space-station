@@ -1,7 +1,5 @@
 # TODO
-
-Once https://github.com/visgl/react-map-gl/issues/1266 is resolved
-* upgrade to 6.0.x of react-map-gl
+Allow trail to render on both sides of the map (wrap)
 
 Display last 10 or so positions on initial page load
 * Render the first 10 spots on the trail (historical ones) with opacity gradient
@@ -17,6 +15,9 @@ Add "themes"
 Add theme selection to control panel
 
 Update title font
+
+Once https://github.com/visgl/react-map-gl/issues/1266 is resolved
+* upgrade to 6.0.x of react-map-gl
 
 Use telemetry data to predict future path
 
