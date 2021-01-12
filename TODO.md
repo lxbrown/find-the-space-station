@@ -1,4 +1,6 @@
 # TODO
+Add firebase initialization to launch
+
 Allow trail to render on both sides of the map (wrap)
 
 Display last 10 or so positions on initial page load
