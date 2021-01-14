@@ -7,6 +7,8 @@ Display last 10 or so positions on initial page load
 * Render the first 10 spots on the trail (historical ones) with opacity gradient
 * Fade in the ISS using a similar opacity gradient (if possible)
 
+Add "Open Source" link to the bottom of the page
+
 Allow tracking (page centers on ISS and tracks it)
 
 Add "themes"
